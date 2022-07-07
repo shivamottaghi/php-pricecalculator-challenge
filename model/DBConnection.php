@@ -1,17 +1,21 @@
 <?php
 
-
 class DBConnection
 {
+    protected PDO $dbc;
 
     public function __construct()
     {
-        require_once 'config.php';
+
+
+        $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+        $dotenv->load();
+
         try {
-            $conn = new PDO("mysql:host=$host;dbname=$db", $user, $password);
-            echo "Connected to $db at $host successfully.";
+            $this->dbc = new PDO('mysql:host=' . $_ENV['DATABASE_HOST'] . ';dbname=' . $_ENV['DATABASE_NAME'], $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD']);
+            echo 'Connected to '.$_ENV['DATABASE_NAME']. 'at'. $_ENV['DATABASE_HOST'].' successfully.';
         } catch (PDOException $pe) {
-            die("Could not connect to the database $db :" . $pe->getMessage());
+            die('Could not connect to the database'. $_ENV['DATABASE_NAME'].' :' . $pe->getMessage());
         }
 
     }
