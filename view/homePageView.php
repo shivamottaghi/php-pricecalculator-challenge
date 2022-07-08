@@ -9,7 +9,7 @@
             <?php if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) : ?>
             <?php foreach ($_SESSION['cart'] as $item) : ?>
             <li>
-                <?php echo $item->getName() . "    "; ?>
+                <?php echo $item->getName() . "&nbsp;&nbsp;&nbsp;&nbsp;"; ?>
                 <?php echo $item->getPrice() ?>
             </li>
                 <?php endforeach; ?>
