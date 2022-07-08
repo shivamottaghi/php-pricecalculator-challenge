@@ -2,7 +2,7 @@
 
 class DBConnection
 {
-    protected PDO $dbc;
+    protected PDO $pdo;
     protected string $connectionResult;
 
     public function __construct()
@@ -11,7 +11,7 @@ class DBConnection
         $dotenv->load();
 
         try {
-            $this->dbc = new PDO('mysql:host=' . $_ENV['DATABASE_HOST'] . ';dbname=' . $_ENV['DATABASE_NAME'], $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD']);
+            $this->pdo = new PDO('mysql:host=' . $_ENV['DATABASE_HOST'] . ';dbname=' . $_ENV['DATABASE_NAME'], $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD']);
             $this->connectionResult = 'Connected to '.$_ENV['DATABASE_NAME']. 'at'. $_ENV['DATABASE_HOST'].' successfully.';
 
         } catch (PDOException $pe) {
@@ -20,15 +20,15 @@ class DBConnection
     }
 
     public function closeConnection() : void{
-        $this->dbc = null;
+        $this->pdo = null;
     }
 
     /**
      * @return PDO
      */
-    public function getDbc(): PDO
+    public function getPdo(): PDO
     {
-        return $this->dbc;
+        return $this->pdo;
     }
 
 }
