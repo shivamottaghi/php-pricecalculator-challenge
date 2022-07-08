@@ -8,13 +8,12 @@ class DataManager
     public function __construct()
     {
         $this->dbc = new DBConnection();
-        $this->pdo = $this->dbc->getDbc();
+        $this->pdo = $this->dbc->getPdo();
     }
 
-    public function fetchProducts(){
+    public function fetchProducts() : array{
         $stmt = $this->pdo->query("select name , price from product");
         $this->products = $stmt->fetchAll();
-
         return $this->products;
     }
 }
