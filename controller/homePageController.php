@@ -14,7 +14,7 @@ class homePageController
             array_push($_SESSION['cart'], $addedToCart);
             var_dump($_SESSION['cart']);
         }
-        //var_dump($_SESSION['cart']);
+        var_dump($_SESSION['login']);
         include 'view/homePageView.php';
     }
 }
