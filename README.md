@@ -15,7 +15,7 @@
 - [x] A product
   - [x] product name
   - [x] price
-    - [ ] needs to be calculated to be 
+    - [ ] needs to be calculated
 - [ ] A customer group
   - [ ] name
 
@@ -23,7 +23,7 @@
 - homepage controller 
   - [x] gets all the products and store them in an array
     - [x] add selected products in session to save how many they chose
-  - [ ] gets all the customers and store them in an array
+  - [x] gets all the customers and store them in an array
 - [ ] login controller
   - [ ] store the customer object with all the necessary information in session
 - [ ] submit order controller
