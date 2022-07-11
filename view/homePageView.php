@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $product['name'] ?></h5>
                             <h6> &euro; <?php echo $product['price'] / 100; ?></h6>
-                            <button type="submit" name="buyProduct" class="btn btn-outline-info"
+                            <button type="submit" name="addToCart" class="btn btn-outline-info"
                                     value="<?php echo $i ?>">Add to cart
                             </button>
                         </div>
