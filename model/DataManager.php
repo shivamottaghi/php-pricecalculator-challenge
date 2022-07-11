@@ -40,7 +40,6 @@ class DataManager
         $variableArr= [];
         $stmt = $this->pdo->query('select group_id , fixed_discount, variable_discount  from customer where id = ' . $customerId);
         $arr = $stmt->fetchAll();
-        var_dump($arr);
         if ($arr[0]['fixed_discount'] !== null) {
             array_push($fixedArr, $arr[0]['fixed_discount']);
         }

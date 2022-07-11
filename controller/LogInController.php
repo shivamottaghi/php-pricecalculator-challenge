@@ -13,7 +13,7 @@ class LogInController
             $_SESSION['login'] =
             new Customer($customer[0]['id'],$customer[0]['firstname'], $customer[0]['lastname'], $customer[0]['group_id']
                 ,$dbManage->getFixedArr(),$dbManage->getVariableArr());
-            var_dump($customer);
+
             $controller = new homePageController();
             $controller->render($POST, $GET);
             require 'view/homePageView.php';

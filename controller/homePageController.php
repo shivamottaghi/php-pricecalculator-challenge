@@ -12,9 +12,7 @@ class homePageController
             $price = $productList[$POST['addToCart']]['price']/100;
             $addedToCart = new Product($name , $price);
             array_push($_SESSION['cart'], $addedToCart);
-            var_dump($_SESSION['cart']);
         }
-        var_dump($_SESSION['login']);
         include 'view/homePageView.php';
     }
 }
