@@ -23,8 +23,8 @@
 - homepage controller 
   - [x] gets all the products and store them in an array
     - [x] add selected products in session to save how many they chose
-  - [x] gets all the customers and store them in an array
 - [ ] login controller
+  - [x] gets all the customers and store them in an array
   - [ ] store the customer object with all the necessary information in session
 - [ ] submit order controller
 
