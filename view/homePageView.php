@@ -28,6 +28,11 @@
 <!--Container to show the products-->
 <div class="container">
     <form method="post">
+        <?php
+        $rand=rand();
+        $_SESSION['rand']=$rand;
+        ?>
+        <input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
         <div class="row">
             <?php $i = 0 ?>
             <?php foreach ($productList as $product) : ?>
