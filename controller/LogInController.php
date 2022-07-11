@@ -2,12 +2,12 @@
 
 class LogInController
 {
-    public function render()
+    public function render($POST , $GET)
     {
         $dbManage = new DataManager();
         $customerList = $dbManage->fetchCustomers();
-        if (isset($_POST['submitLogIn'])) {
-            $id = $_POST['submitLogIn'];
+        if (isset($POST['submitLogIn'])) {
+            $id = $POST['submitLogIn'];
             $customer = $dbManage->fetchOneCustomer($id);
             $_SESSION['login'] =
             new Customer($customer[0]['firstname'], $customer[0]['lastname'], $customer[0]['group_id'] );

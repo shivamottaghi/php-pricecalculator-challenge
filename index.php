@@ -18,6 +18,6 @@ if (!isset($_SESSION['login'])){
 }else{
     $controller = new homePageController();
 }
-$controller->render();
+$controller->render($_POST, $_GET);
 include 'view/footer.php';
 
