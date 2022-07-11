@@ -1,4 +1,4 @@
-<!--<h4>You're logged in as --><?php //echo $_SESSION['login']->getName().' '. $_SESSION['login']->getLastName(); ?><!--</h4>-->
+<h4>You're logged in as <?php echo $_SESSION['login']->getName().' '. $_SESSION['login']->getLastName(); ?></h4>
 <!--Collapse to show the cart-->
 <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
         aria-expanded="false" aria-controls="collapseExample">
