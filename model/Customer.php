@@ -7,6 +7,8 @@ class Customer
     protected int $groupId;
     protected int $fixedDiscount;
     protected int $variableDiscount;
+    protected array $fixedArr;
+    protected array $variableArr;
 
     /**
      * @param string $name
