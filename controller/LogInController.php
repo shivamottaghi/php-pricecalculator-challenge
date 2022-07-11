@@ -8,14 +8,14 @@ class LogInController
         $customerList = $dbManage->fetchCustomers();
         if (isset($POST['submitLogIn'])) {
             $id = $POST['submitLogIn'];
+            $dbManage->fetchDiscounts($id);
             $customer = $dbManage->fetchOneCustomer($id);
             $_SESSION['login'] =
-            new Customer($customer[0]['firstname'], $customer[0]['lastname'], $customer[0]['group_id'] );
-            //$_SESSION['login'] = $customer;
+            new Customer($customer[0]['id'],$customer[0]['firstname'], $customer[0]['lastname'], $customer[0]['group_id']
+                ,$dbManage->getFixedArr(),$dbManage->getVariableArr());
             var_dump($customer);
-            //$_SESSION['login'] = new Customer();
             $controller = new homePageController();
-            $controller->render();
+            $controller->render($POST, $GET);
             require 'view/homePageView.php';
         } else {
             require 'view/logInView.php';
