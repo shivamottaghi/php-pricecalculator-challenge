@@ -6,8 +6,8 @@ class DataManager
     protected PDO $pdo;
     protected array $products;
     protected array $customers;
-    protected array $fixedArr;
-    protected array $variableArr;
+    protected int $fixedDiscount;
+    protected int $variableDiscount;
     public function __construct()
     {
         $this->dbc = new DBConnection();
@@ -34,16 +34,20 @@ class DataManager
         return $stmt->fetchAll();
     }
 
-    public function fetchDiscounts($customerId)
+    public function fetchDiscounts($customerId): void
     {
-        $fixedArr = [];
+//        $fixedArr = [];
         $variableArr= [];
+        $tempResult=0;
+        $tempResult2=0;
         $stmt = $this->pdo->query('select group_id , fixed_discount, variable_discount  from customer where id = ' . $customerId);
         $arr = $stmt->fetchAll();
         if ($arr[0]['fixed_discount'] !== null) {
-            array_push($fixedArr, $arr[0]['fixed_discount']);
+            $tempResult += $arr[0]['fixed_discount'];
+//            array_push($fixedArr, $arr[0]['fixed_discount']);
         }
         if ($arr[0]['variable_discount'] !== null) {
+            $tempResult2 = $arr[0]['variable_discount'];
             array_push($variableArr, $arr[0]['variable_discount']);
         }
         $parentId = $arr[0]['group_id'];
@@ -52,31 +56,37 @@ class DataManager
             $stmt = $this->pdo->query('select parent_id , fixed_discount , variable_discount from customer_group where id = ' . $parentId);
             $arr = $stmt->fetchAll();
             if ($arr[0]['fixed_discount'] !== null) {
-                array_push($fixedArr, $arr[0]['fixed_discount']);
+                $tempResult += $arr[0]['fixed_discount'];
+//                array_push($fixedArr, $arr[0]['fixed_discount']);
             }
             if ($arr[0]['variable_discount'] !== null) {
+                if($tempResult2<$arr[0]['variable_discount']){
+                    $tempResult2 = $arr[0]['variable_discount'];
+                }
                 array_push($variableArr, $arr[0]['variable_discount']);
             }
             $parentId = $arr[0]['parent_id'];
         }
-        $this->variableArr = $variableArr;
-        $this->fixedArr = $fixedArr;
+        $this->variableDiscount = $tempResult2;
+        $this->fixedDiscount = $tempResult;
+//        $this->variableArr = $variableArr;
+//        $this->fixedArr = $fixedArr;
     }
 
     /**
      * @return array
      */
-    public function getFixedArr(): array
+    public function getFixedDiscount(): int
     {
-        return $this->fixedArr;
+        return $this->fixedDiscount;
     }
 
     /**
      * @return array
      */
-    public function getVariableArr(): array
+    public function getVariableDiscount(): int
     {
-        return $this->variableArr;
+        return $this->variableDiscount;
     }
 
 }
