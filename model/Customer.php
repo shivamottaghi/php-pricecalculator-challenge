@@ -15,13 +15,11 @@ class Customer
      * @param int $fixedDiscount
      * @param int $variableDiscount
      */
-    public function __construct(string $name, string $lastName, int $groupId, int $fixedDiscount, int $variableDiscount)
+    public function __construct(string $name, string $lastName, int $groupId)
     {
         $this->name = $name;
         $this->lastName = $lastName;
         $this->groupId = $groupId;
-        $this->fixedDiscount = $fixedDiscount;
-        $this->variableDiscount = $variableDiscount;
     }
 
     /**
@@ -62,6 +60,22 @@ class Customer
     public function getVariableDiscount(): int
     {
         return $this->variableDiscount;
+    }
+
+    /**
+     * @param int $fixedDiscount
+     */
+    public function setFixedDiscount(int $fixedDiscount): void
+    {
+        $this->fixedDiscount = $fixedDiscount;
+    }
+
+    /**
+     * @param int $variableDiscount
+     */
+    public function setVariableDiscount(int $variableDiscount): void
+    {
+        $this->variableDiscount = $variableDiscount;
     }
 
 
