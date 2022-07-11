@@ -6,6 +6,7 @@ require 'model/DBConnection.php';
 require 'model/DataManager.php';
 require 'model/Product.php';
 require 'controller/LogInController.php';
+require 'controller/submitOrderController.php';
 
 session_start();
 
@@ -15,6 +16,10 @@ if (!isset($_SESSION['cart'])){
 }
 if (!isset($_SESSION['login'])){
     $controller = new LogInController();
+}elseif(isset($_GET['page'])){
+    if ($_GET['page'] == 'submitOrder'){
+        $controller = new submitOrderController();
+    }
 }else{
     $controller = new homePageController();
 }
