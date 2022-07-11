@@ -12,8 +12,6 @@ class Customer
      * @param string $name
      * @param string $lastName
      * @param int $groupId
-     * @param int $fixedDiscount
-     * @param int $variableDiscount
      */
     public function __construct(string $name, string $lastName, int $groupId)
     {
