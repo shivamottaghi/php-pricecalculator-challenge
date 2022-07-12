@@ -74,7 +74,7 @@ class DataManager
     }
 
     /**
-     * @return array
+     * @return int
      */
     public function getFixedDiscount(): int
     {
@@ -82,7 +82,7 @@ class DataManager
     }
 
     /**
-     * @return array
+     * @return int
      */
     public function getVariableDiscount(): int
     {
