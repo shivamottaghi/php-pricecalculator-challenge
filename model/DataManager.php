@@ -2,12 +2,13 @@
 
 class DataManager
 {
-    protected DBConnection $dbc;
-    protected PDO $pdo;
-    protected array $products;
-    protected array $customers;
-    protected int $fixedDiscount;
-    protected int $variableDiscount;
+    private DBConnection $dbc;
+    private PDO $pdo;
+    private array $products;
+    private array $customers;
+    private int $fixedDiscount;
+    private int $variableDiscount;
+    private int $customerId;
     public function __construct()
     {
         $this->dbc = new DBConnection();
@@ -36,43 +37,48 @@ class DataManager
 
     public function fetchDiscounts($customerId): void
     {
-//        $fixedArr = [];
-        $variableArr= [];
-        $tempResult=0;
-        $tempResult2=0;
-        $stmt = $this->pdo->query('select group_id , fixed_discount, variable_discount  from customer where id = ' . $customerId);
-        $arr = $stmt->fetchAll();
-        if ($arr[0]['fixed_discount'] !== null) {
-            $tempResult += $arr[0]['fixed_discount'];
-//            array_push($fixedArr, $arr[0]['fixed_discount']);
+        $this->customerId = $customerId;
+        $this->fixedDiscount = $this->totalFixedDiscounts();
+        $this->variableDiscount = $this->bestVariableDiscount();
+    }
+
+    //-_-_-_-_-_-_-_-_-_- total discount calculation start -_-_-_-_-_-_-_-_-_-
+    private function bestVariableDiscount() : int
+    {
+        $varArr = $this->fetchAllDiscounts('variable_discount');
+        return max($varArr);
+    }
+    /**
+     * @return int
+     */
+    private function totalFixedDiscounts() : int{
+        $fixedArr = $this->fetchAllDiscounts('fixed_discount');
+        $total = 0;
+        foreach ($fixedArr as $discount){
+            $total+= $discount;
         }
-        if ($arr[0]['variable_discount'] !== null) {
-            $tempResult2 = $arr[0]['variable_discount'];
-            array_push($variableArr, $arr[0]['variable_discount']);
+        return $total;
+    }
+    private function fetchAllDiscounts(string $col) : array
+    {
+        $final = [];
+        $stmt = $this->pdo->query('select group_id , '.$col.'  from customer where id = ' . $this->customerId);
+        $arr = $stmt->fetchAll();
+        if ($arr[0][$col] !== null) {
+            array_push($final , $arr[0][$col]);
         }
         $parentId = $arr[0]['group_id'];
-
         while ($parentId !== null) {
-            $stmt = $this->pdo->query('select parent_id , fixed_discount , variable_discount from customer_group where id = ' . $parentId);
+            $stmt = $this->pdo->query('select parent_id , '.$col.' from customer_group where id = ' . $parentId);
             $arr = $stmt->fetchAll();
-            if ($arr[0]['fixed_discount'] !== null) {
-                $tempResult += $arr[0]['fixed_discount'];
-//                array_push($fixedArr, $arr[0]['fixed_discount']);
-            }
-            if ($arr[0]['variable_discount'] !== null) {
-                if($tempResult2<$arr[0]['variable_discount']){
-                    $tempResult2 = $arr[0]['variable_discount'];
-                }
-                array_push($variableArr, $arr[0]['variable_discount']);
+            if ($arr[0][$col] !== null) {
+                array_push($final , $arr[0][$col]);
             }
             $parentId = $arr[0]['parent_id'];
         }
-        $this->variableDiscount = $tempResult2;
-        $this->fixedDiscount = $tempResult;
-//        $this->variableArr = $variableArr;
-//        $this->fixedArr = $fixedArr;
+        return $final;
     }
-
+    //-_-_-_-_-_-_-_-_-_- total fixed discount calculation END -_-_-_-_-_-_-_-_-_-
     /**
      * @return int
      */
@@ -88,5 +94,6 @@ class DataManager
     {
         return $this->variableDiscount;
     }
+
 
 }
