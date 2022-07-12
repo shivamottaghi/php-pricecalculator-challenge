@@ -16,9 +16,21 @@ if (!isset($_SESSION['cart'])){
 }
 if (!isset($_SESSION['login'])){
     $controller = new LogInController();
-}elseif(isset($_GET['page'])){
-    if ($_GET['page'] == 'submitOrder'){
-        $controller = new submitOrderController();
+}elseif(isset($_GET['page']) && !isset($_POST['addToCart'])){
+    switch ($_GET['page']){
+        case 'homePage':
+            $controller = new homePageController();
+            break;
+        case 'login':
+              session_unset();
+              $controller = new LogInController();
+              break;
+        case 'submitOrder':
+            $controller = new submitOrderController();
+            break;
+        default:
+            $controller = new homePageController();
+            break;
     }
 }else{
     $controller = new homePageController();
