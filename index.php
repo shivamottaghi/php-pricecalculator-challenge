@@ -19,14 +19,6 @@ if (!isset($_SESSION['login'])){
 }elseif(isset($_GET['page'])){
     if ($_GET['page'] == 'submitOrder'){
         $controller = new submitOrderController();
-<<<<<<< HEAD
-//    } elseif($_GET['page'] == 'homePage'){
-//        $controller = new HomePageController();
-//    } else {
-//        session_unset();
-//        $controller = new LogInController();
-=======
->>>>>>> a807a3bbb55d442479aa9ad29bcc686d2169f018
     }
 }else{
     $controller = new homePageController();
