@@ -12,11 +12,7 @@ class LogInController
             $customer = $dbManage->fetchOneCustomer($id);
             $_SESSION['login'] =
             new Customer($customer[0]['id'],$customer[0]['firstname'], $customer[0]['lastname'], $customer[0]['group_id']
-<<<<<<< HEAD
                 ,$dbManage->getFixedDiscount(),$dbManage->getVariablediscount());
-=======
-                ,$dbManage->getFixedArr(),$dbManage->getVariableArr());
->>>>>>> a807a3bbb55d442479aa9ad29bcc686d2169f018
 
             $controller = new homePageController();
             $controller->render($POST, $GET);
