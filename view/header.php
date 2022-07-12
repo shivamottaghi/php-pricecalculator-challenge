@@ -13,8 +13,8 @@
 
 <nav class="nav">
     <form method="get">
-        <button name="page" value="login" type="submit" class="nav-link active" aria-current="page" href="#" disabled>log in</button>
-        <button name="page" value="homePage" class="nav-link" href="#" disabled>home page</button>
+        <button name="page" value="login" type="submit" class="nav-link active" aria-current="page" href="#">log in</button>
+        <button name="page" value="homePage" class="nav-link" href="#" >home page</button>
     </form>
 </nav>
 
